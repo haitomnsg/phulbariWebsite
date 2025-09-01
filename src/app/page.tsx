@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Bot, Download, Droplets, ScanLine, Twitter, Instagram, Facebook } from "lucide-react";
+import { ArrowRight, Bot, Download, Droplets, ScanLine, Twitter, Instagram, Facebook, Cpu, Layers, Database } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -11,8 +11,8 @@ import { generateAiFeatureExplanation } from '@/ai/flows/generate-ai-feature-exp
 
 async function AiExplanation() {
   const result = await generateAiFeatureExplanation({
-    flowerClassificationDetails: "The AI uses a convolutional neural network (CNN) trained on an extensive dataset of over 10,000 flower species. It analyzes visual patterns like petal shape, color gradients, and stamen structure to achieve over 98% classification accuracy.",
-    diseaseDetectionDetails: "Our vision model is trained to recognize subtle signs of common plant diseases, such as powdery mildew, rusts, and leaf spots. By analyzing pixel data for discoloration and texture anomalies, it can diagnose issues early, often before they're obvious to the human eye."
+    flowerClassificationDetails: "The AI uses a deep learning model (ResNet101V2) trained on 100 flower species to accurately identify flowers from images. The TensorFlow Lite model is integrated directly into the Android app for real-time classification.",
+    diseaseDetectionDetails: "The system provides detailed plant care information, including watering schedules, sunlight exposure, and propagation methods based on the flower's species."
   });
 
   return (
@@ -24,27 +24,36 @@ export default async function Home() {
   const features = [
     {
       icon: <ScanLine className="w-8 h-8 text-primary" />,
-      title: "Flower Identification",
-      description: "Snap a photo, and our AI will tell you the flower's species, providing you with its unique characteristics and care information.",
+      title: "Flower Classification",
+      description: "Snap a photo, and our ResNet101V2 model, trained on 100 flower species, will accurately identify it in real-time.",
     },
     {
       icon: <Bot className="w-8 h-8 text-primary" />,
-      title: "AI Disease Diagnosis",
-      description: "Our AI analyzes photos to detect diseases, offering treatment advice and video tutorials to help you cure your plants.",
+      title: "Detailed Plant Care",
+      description: "Receive comprehensive care information for your classified flower, including watering schedules, sunlight needs, and propagation tips.",
     },
     {
       icon: <Droplets className="w-8 h-8 text-primary" />,
-      title: "Smart Watering",
-      description: "Our IoT device monitors soil moisture and waters your plants automatically, ensuring they get the perfect amount of hydration.",
+      title: "Automated Watering",
+      description: "Our IoT device monitors soil moisture and waters your plants automatically, ensuring they always have the perfect level of hydration.",
     },
   ];
 
   const galleryImages = [
-    { src: "https://picsum.photos/400/800?random=1", alt: "Phulbari app screenshot 1", hint: "app screenshot" },
-    { src: "https://picsum.photos/400/800?random=2", alt: "Phulbari app screenshot 2", hint: "plant identification" },
-    { src: "https://picsum.photos/400/800?random=3", alt: "Phulbari app screenshot 3", hint: "disease detection" },
-    { src: "https://picsum.photos/400/800?random=4", alt: "Phulbari app screenshot 4", hint: "care schedule" },
-    { src: "https://picsum.photos/400/800?random=5", alt: "Phulbari app screenshot 5", hint: "iot control" },
+    { src: "https://picsum.photos/400/800?random=1", alt: "Phulbari app flower classification screen", hint: "app screenshot" },
+    { src: "https://picsum.photos/400/800?random=2", alt: "Phulbari app plant care details screen", hint: "plant care" },
+    { src: "https://picsum.photos/400/800?random=3", alt: "Phulbari app IoT moisture monitoring screen", hint: "iot dashboard" },
+    { src: "https://picsum.photos/400/800?random=4", alt: "User taking a photo of a flower with the app", hint: "flower photography" },
+    { src: "https://picsum.photos/400/800?random=5", alt: "A healthy, well-watered plant", hint: "healthy plant" },
+  ];
+  
+  const techStack = [
+    { name: "TensorFlow & Keras", description: "Deep Learning Framework", icon: "🤖" },
+    { name: "ResNet101V2", description: "Model Architecture", icon: "🧠" },
+    { name: "Android (Java)", description: "Mobile Application", icon: "📱" },
+    { name: "CameraX API", description: "Camera Integration", icon: "📸" },
+    { name: "ESP32", description: "IoT Microcontroller", icon: "⚙️" },
+    { name: "Firebase", description: "Cloud Services", icon: "☁️" },
   ];
 
   return (
@@ -72,7 +81,7 @@ export default async function Home() {
                   Happy Flowers, Happy You.
                 </h1>
                 <p className="max-w-[600px] text-muted-foreground md:text-xl">
-                  Welcome to Phulbari, your personal AI gardening assistant. Identify plants, cure diseases, and automate watering with our smart app and IoT device.
+                  An AI-powered mobile application that integrates deep learning and IoT technology to classify flowers and automate plant care.
                 </p>
                 <div className="flex flex-col gap-2 min-[400px]:flex-row">
                   <Button asChild size="lg" className="transition-transform hover:scale-105">
@@ -172,7 +181,56 @@ export default async function Home() {
           </div>
         </section>
 
-        <section id="download" className="w-full py-12 md:py-24 lg:py-32">
+        <section id="architecture" className="w-full py-12 md:py-24 lg:py-32">
+          <div className="container px-4 md:px-6">
+            <div className="text-center">
+              <h2 className="text-3xl font-bold tracking-tighter sm:text-5xl font-headline">System Architecture</h2>
+              <p className="max-w-[900px] mx-auto text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed mt-4">
+                Phulbari combines a powerful mobile app, a smart IoT device, and cloud services to deliver a seamless plant care experience.
+              </p>
+            </div>
+            <div className="mx-auto grid max-w-5xl items-start gap-8 sm:grid-cols-2 lg:grid-cols-3 lg:max-w-none mt-12">
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Layers className="w-6 h-6 text-primary" /> AI Classification</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>User captures an image of a flower using the mobile app. The TensorFlow Lite model (ResNet101V2) classifies the flower and retrieves related care information.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Cpu className="w-6 h-6 text-primary" /> IoT Watering System</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>An ESP32 with a soil moisture sensor reads real-time data. If moisture is below the threshold, the ESP32 activates the water pump automatically.</p>
+                </CardContent>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2"><Database className="w-6 h-6 text-primary" /> Cloud Integration</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <p>The app displays real-time moisture data and irrigation history, with all sensor data stored and synchronized through Firebase Realtime Database.</p>
+                </CardContent>
+              </Card>
+            </div>
+            <div className="mt-12 text-center">
+              <h3 className="text-2xl font-bold tracking-tighter sm:text-3xl font-headline">Technologies Used</h3>
+              <div className="mx-auto grid max-w-4xl grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-6 mt-8">
+                {techStack.map((tech) => (
+                  <div key={tech.name} className="flex flex-col items-center gap-2">
+                    <div className="text-4xl">{tech.icon}</div>
+                    <p className="font-semibold text-sm">{tech.name}</p>
+                    <p className="text-xs text-muted-foreground">{tech.description}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="download" className="w-full py-12 md:py-24 lg:py-32 bg-secondary">
           <div className="container grid items-center justify-center gap-4 px-4 text-center md:px-6">
             <div className="space-y-3">
               <h2 className="text-3xl font-bold tracking-tighter md:text-4xl/tight font-headline">Ready to Grow Your Happiness?</h2>
@@ -186,12 +244,12 @@ export default async function Home() {
                   <Download className="mr-2 h-5 w-5"/> Download for Android
                  </Link>
                </Button>
-               <p className="text-xs text-muted-foreground">Available on the Google Play Store.</p>
+               <p className="text-xs text-muted-foreground">Available on the Google Play Store. Android 7.0+ required.</p>
             </div>
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t bg-secondary">
+      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
         <div className="flex items-center gap-2">
           <Logo className="h-6 w-6 text-primary" />
           <p className="text-sm text-muted-foreground">&copy; 2024 Phulbari. All rights reserved.</p>
